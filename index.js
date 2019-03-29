@@ -2,6 +2,7 @@ import express from "express";
 import mongoose from "mongoose";
 import bodyParser from "body-parser";
 import helmet from "helmet";
+import rateLimit from "express-rate-limit"
 import routes from "./src/routes/crmRoutes";
 
 const app = express();
@@ -13,6 +14,12 @@ mongoose.connect("mongodb://localhost/CRMdb", { useNewUrlParser: true });
 
 // helmet
 app.use(helmet());
+
+// rate limit
+app.use(rateLimit({
+  windowMs: 15 * 60 * 1000, // 15 minutes
+  max: 100, // limit each IP to 100 requests per windowMs
+}))
 
 // bodyparser setup
 app.use(bodyParser.urlencoded({ extended: true }));
