@@ -4,7 +4,7 @@ import { ContactSchema } from '../models/crmModel';
 
 const Contact = mongoose.model('Contact', ContactSchema);
 
-const addNewContactSchema = Joi.object.keys({
+const addNewContactSchema = Joi.object().keys({
     firstName: Joi.string().min(2).max(50).alphanum().trim().required(),
     lastName: Joi.string().min(2).max(50).alphanum().trim().required(),
     email: Joi.string().email(),
@@ -13,7 +13,7 @@ const addNewContactSchema = Joi.object.keys({
     created_at: Joi.date()
 })
 
-const updateContactSchema = Joi.object.keys({
+const updateContactSchema = Joi.object().keys({
     firstName: Joi.string().min(2).max(50).alphanum().trim(),
     lastName: Joi.string().min(2).max(50).alphanum().trim(),
     email: Joi.string().email(),
